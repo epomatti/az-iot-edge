@@ -297,3 +297,5 @@ sudo iotedge check
 https://www.youtube.com/watch?v=9Pe1ZF_KAfI
 
 https://azure.microsoft.com/en-us/blog/the-blueprint-to-securely-solve-the-elusive-zerotouch-provisioning-of-iot-devices-at-scale/
+
+https://www.youtube.com/watch?v=w1qwfIrUFOQ
