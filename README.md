@@ -158,6 +158,8 @@ sudo cp /etc/aziot/config.toml.edge.template /etc/aziot/config.toml
 sudo vim /etc/aziot/config.toml
 ```
 
+Certificate directory:
+
 ```sh
 # Create the certificates directory
 mkdir /etc/iotedge
