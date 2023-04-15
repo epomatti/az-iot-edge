@@ -17,10 +17,11 @@ Procecure for [X.509](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-pr
 Create the hub:
 
 ```sh
+# IoT Hub
 az group create --name IoTEdgeResources --location westus2
 az iot hub create --resource-group IoTEdgeResources --name iothub789 --sku F1 --partition-count 2 --mintls "1.2"
 
-# Upgrade the root if required
+# Upgrade the root to V2 if required
 az iot hub certificate root-authority set --hub-name iothub789 --certificate-authority v2
 az iot hub certificate root-authority show --hub-name iothub789
 ```
