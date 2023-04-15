@@ -106,7 +106,7 @@ Generate the thumbprint:
 openssl x509 -in iot-edge-device-identity-myEdgeDevice.cert.pem -fingerprint -noout -nocert
 ```
 
-Remove the colons (`:`).
+➡️ Remove the colons (`:`)
 
 Create the IoT Edge device:
 
@@ -114,13 +114,91 @@ Create the IoT Edge device:
 az iot hub device-identity create --device-id myEdgeDevice --hub-name iothub789 --edge-enabled --auth-method x509_thumbprint --primary-thumbprint primary_SHA_thumbprint_here --secondary-thumbprint secdonary_SHA_thumbprint_here
 ```
 
-To get the connection string:
+Add Microsoft packages:
 
-```sh
-az iot hub device-identity connection-string show --device-id myEdgeDevice --hub-name iothub789
+```
+sudo wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo rm packages-microsoft-prod.deb
 ```
 
+Install Docker:
 
+```
+sudo apt-get update; \
+  sudo apt-get install moby-engine
+```
+
+Create `/etc/docker/daemon.json` and add:
+
+```json
+{
+  "log-driver": "local"
+}
+```
+
+Then restart:
+
+```
+sudo systemctl restart docker
+sudo systemctl status docker
+```
+
+Install the Edge runtime:
+
+```
+sudo apt-get update; \
+   sudo apt-get install aziot-edge
+```
+
+Provision the device:
+
+```
+sudo cp /etc/aziot/config.toml.edge.template /etc/aziot/config.toml
+sudo vim /etc/aziot/config.toml
+```
+
+```
+mkdir /etc/iotedge
+
+cp /home/azureuser/wrkdir/private/iot-edge-device-identity-myEdgeDevice.key.pem /tmp/iotedge/pk.pem
+cp /home/azureuser/wrkdir/certs/iot-edge-device-identity-myEdgeDevice.cert.pem /tmp/iotedge/cert.pem
+
+sudo chown -R iotedge: /tmp/iotedge
+```
+
+Edit the "Manual provisioning with X.509 certificate" section:
+
+```toml
+# Manual provisioning with X.509 certificate
+[provisioning]
+source = "manual"
+iothub_hostname = "iothub789.azure-devices.net"
+device_id = "myEdgeDevice"
+
+[provisioning.authentication]
+method = "x509"
+
+# identity certificate private key
+identity_pk = "file:///tmp/iotedge/pk.pem"
+
+# identity certificate
+identity_cert = "file:///tmp/iotedge/cert.pem"
+```
+
+Apply the configuration:
+
+```
+sudo iotedge config apply
+```
+
+Run the verification commands:
+
+```
+sudo iotedge system status
+sudo iotedge system logs
+sudo iotedge check
+```
 
 ## Symmetric Key
 
