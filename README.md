@@ -7,7 +7,7 @@ Following the [quickstart](https://learn.microsoft.com/en-us/azure/iot-edge/quic
 Procecure for [X.509](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-x509?view=iotedge-1.4&tabs=azure-portal%2Cubuntu). Additional docs:
 
 - [How IoT Edge uses certificates](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-certs?view=iotedge-1.4).
-- [Scalable X.509](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-devices-at-scale-linux-x509?view=iotedge-1.4&tabs=individual-enrollment%2Cubuntu) using DPS
+- [Scalable X.509 using DPS](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-devices-at-scale-linux-x509?view=iotedge-1.4&tabs=individual-enrollment%2Cubuntu)
 - [Test certificates](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-create-test-certificates?view=iotedge-1.4&tabs=linux)
 - [IoT Hub root certificate migration](https://learn.microsoft.com/en-us/azure/iot-hub/migrate-tls-certificate?tabs=cli)
 - [Transparent gateway](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-create-transparent-gateway?view=iotedge-1.4&tabs=iotedge)
