@@ -1,9 +1,8 @@
-# az-iot-edge
+# Azure IoT Edge
 
 Following the [quickstart](https://learn.microsoft.com/en-us/azure/iot-edge/quickstart-linux?view=iotedge-1.4) official tutorials.
 
-## X.509 Certificate
-
+## X.509 Certificate attestation
 
 Procecure for [X.509](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-x509?view=iotedge-1.4&tabs=azure-portal%2Cubuntu). Additional docs:
 
@@ -209,7 +208,7 @@ Using the Portal, add a marketplace Edge module, then check again:
 sudo iotedge list
 ```
 
-## Symmetric Key
+## Symmetric Key attestation
 
 Procedure for [symmetric key](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-symmetric?view=iotedge-1.4&tabs=azure-cli%2Cubuntu) attestation.
 
