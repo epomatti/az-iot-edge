@@ -158,12 +158,15 @@ sudo cp /etc/aziot/config.toml.edge.template /etc/aziot/config.toml
 sudo vim /etc/aziot/config.toml
 ```
 
-```
+```sh
+# Create the certificates directory
 mkdir /etc/iotedge
 
+# Copy the files
 cp /home/azureuser/wrkdir/private/iot-edge-device-identity-myEdgeDevice.key.pem /tmp/iotedge/pk.pem
 cp /home/azureuser/wrkdir/certs/iot-edge-device-identity-myEdgeDevice.cert.pem /tmp/iotedge/cert.pem
 
+# Give the IoT Edge user permission
 sudo chown -R iotedge: /tmp/iotedge
 ```
 
@@ -198,6 +201,12 @@ Run the verification commands:
 sudo iotedge system status
 sudo iotedge system logs
 sudo iotedge check
+```
+
+Using the Portal, add a marketplace Edge module, then check again:
+
+```
+sudo iotedge list
 ```
 
 ## Symmetric Key
@@ -280,7 +289,6 @@ sudo iotedge system status
 sudo iotedge system logs
 sudo iotedge check
 ```
-
 
 ## Reference
 
