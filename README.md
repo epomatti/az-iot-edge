@@ -2,6 +2,8 @@
 
 Following the [quickstart](https://learn.microsoft.com/en-us/azure/iot-edge/quickstart-linux?view=iotedge-1.4) official tutorials.
 
+<img src=".assets/edge.png" width=500 />
+
 ## X.509 Certificate attestation
 
 Procecure for [X.509](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-provision-single-device-linux-x509?view=iotedge-1.4&tabs=azure-portal%2Cubuntu). Additional docs:
