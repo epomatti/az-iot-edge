@@ -88,7 +88,6 @@ cd wrkdir
 
 # Download the raw files for testing
 curl "https://raw.githubusercontent.com/Azure/iotedge/main/tools/CACertificates/certGen.sh" --output certGen.sh
-
 curl "https://raw.githubusercontent.com/Azure/iotedge/main/tools/CACertificates/openssl_root_ca.cnf" --output openssl_root_ca.cnf
 
 # Root
@@ -151,18 +150,11 @@ sudo apt-get update; \
    sudo apt-get install aziot-edge
 ```
 
-Provision the device:
-
-```
-sudo cp /etc/aziot/config.toml.edge.template /etc/aziot/config.toml
-sudo vim /etc/aziot/config.toml
-```
-
 Certificate directory:
 
 ```sh
 # Create the certificates directory
-mkdir /etc/iotedge
+mkdir /tmp/iotedge
 
 # Copy the files
 cp /home/azureuser/wrkdir/private/iot-edge-device-identity-myEdgeDevice.key.pem /tmp/iotedge/pk.pem
@@ -170,6 +162,13 @@ cp /home/azureuser/wrkdir/certs/iot-edge-device-identity-myEdgeDevice.cert.pem /
 
 # Give the IoT Edge user permission
 sudo chown -R iotedge: /tmp/iotedge
+```
+
+Provision the device:
+
+```
+sudo cp /etc/aziot/config.toml.edge.template /etc/aziot/config.toml
+sudo vim /etc/aziot/config.toml
 ```
 
 Edit the "Manual provisioning with X.509 certificate" section:
@@ -210,6 +209,33 @@ Using the Portal, add a marketplace Edge module, then check again:
 ```
 sudo iotedge list
 ```
+
+## Self-signed Root CA
+
+You need to [manage the trust bundle](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-manage-device-certificates?view=iotedge-1.4&tabs=linux#manage-trusted-root-ca-trust-bundle) if using a self-signed root CA.
+
+After creating your certificates, upload the Root CA to the IoT Hub:
+
+```
+az iot hub certificate create -n "Test-Only-Root" \
+    --hub-name iothub789 \
+    -g IoTEdgeResources \
+    -p openssl/certs/azure-iot-test-only.root.ca.cert.pem \
+    -v true
+```
+
+Register the device with `x509_ca` authentication method:
+
+```
+az iot hub device-identity create \
+    --device-id "device-01" \
+    --hub-name iothub789 \
+    --auth-method x509_ca \
+    --edge-enabled
+```
+
+
+
 
 ## Symmetric Key attestation
 
