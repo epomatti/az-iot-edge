@@ -240,11 +240,23 @@ az vm create \
   --public-ip-sku Standard
 ```
 
+Connect to the VM:
+
+```
+ssh azureuser@<public-ip>
+```
+
 Update the packages:
 
 ```
 sudo apt update
 sudo apt upgrade -y
+```
+
+Restart the VM:
+
+```
+az vm restart -n vmiotedge -g IoTEdgeResources
 ```
 
 Install Docker:
@@ -286,6 +298,7 @@ sudo iotedge config mp --connection-string 'PASTE_DEVICE_CONNECTION_STRING_HERE'
 ```
 
 Run the checks:
+
 ```
 sudo iotedge system status
 sudo iotedge system logs
