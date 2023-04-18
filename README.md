@@ -2,7 +2,7 @@
 
 Following the [quickstart](https://learn.microsoft.com/en-us/azure/iot-edge/quickstart-linux?view=iotedge-1.4) official tutorials.
 
-<img src=".assets/edge.png" width=500 />
+<img src=".assets/iotedge-x509.png" width=500 />
 
 ## X.509 Certificate attestation
 
@@ -214,30 +214,11 @@ sudo iotedge list
 
 ## Self-signed Root CA
 
-You need to [manage the trust bundle](https://learn.microsoft.com/en-us/azure/iot-edge/how-to-manage-device-certificates?view=iotedge-1.4&tabs=linux#manage-trusted-root-ca-trust-bundle) if using a self-signed root CA.
+For IoT Edge this is [not supported](https://learn.microsoft.com/en-us/azure/iot-edge/iot-edge-certs?view=iotedge-1.4#:~:text=IoT%20Hub%20currently%20doesn%27t%20support%20X.509%20CA%20authentication%20directly%20with%20IoT%20Edge.), also detailed in [this issue](https://github.com/MicrosoftDocs/azure-docs/issues/108363).
 
-After creating your certificates, upload the Root CA to the IoT Hub:
+It has to be done using DPS.
 
-```
-az iot hub certificate create -n "Test-Only-Root" \
-    --hub-name iothub789 \
-    -g IoTEdgeResources \
-    -p openssl/certs/azure-iot-test-only.root.ca.cert.pem \
-    -v true
-```
-
-Register the device with `x509_ca` authentication method:
-
-```
-az iot hub device-identity create \
-    --device-id "device-01" \
-    --hub-name iothub789 \
-    --auth-method x509_ca \
-    --edge-enabled
-```
-
-
-
+Check my othe repository for this example: https://github.com/epomatti/az-iot-edge-selfsigned-root-ca-dps
 
 ## Symmetric Key attestation
 
